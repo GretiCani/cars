@@ -21,23 +21,8 @@ public class Mapper {
                 .wheelsType(model.getWheels().getType().getType())
                 .wheelsSize(model.getWheels().getSize())
                 .parentId(model.getParentModel()!=null?model.getParentModel().getId():null)
+                .catalogueId(model.getCatalogue().getId())
                 .createdAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(model.getCreatedAt()), ZoneId.systemDefault()))
-                .build();
-    }
-
-    public static CarModelTypeDTO toModelTypeDTO(ModelType modelType){
-        return CarModelTypeDTO.builder()
-                .id(modelType.getId())
-                .type(modelType.getType())
-                .createdAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(modelType.getCreatedAt()), ZoneId.systemDefault()))
-                .build();
-    }
-
-    public static CarModelLineDTO toModelLineDTO(ModelLine modelLine){
-        return CarModelLineDTO.builder()
-                .id(modelLine.getId())
-                .line(modelLine.getLine())
-                .createdAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(modelLine.getCreatedAt()), ZoneId.systemDefault()))
                 .build();
     }
 

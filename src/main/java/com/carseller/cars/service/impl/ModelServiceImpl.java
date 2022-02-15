@@ -1,9 +1,6 @@
 package com.carseller.cars.service.impl;
 
-import com.carseller.cars.commons.dto.CarModelLineDTO;
-import com.carseller.cars.commons.dto.CarModelTypeDTO;
 import com.carseller.cars.commons.exceptions.ResourceNotFound;
-import com.carseller.cars.commons.xml.Catalogue;
 import com.carseller.cars.domain.*;
 import com.carseller.cars.commons.dto.CarModelDTO;
 import com.carseller.cars.repositories.*;
@@ -12,12 +9,10 @@ import com.carseller.cars.service.EngineService;
 import com.carseller.cars.service.WheelsService;
 import com.carseller.cars.commons.mappers.Mapper;
 import com.carseller.cars.commons.xml.Model;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,34 +60,9 @@ public class ModelServiceImpl implements ModelService {
                         .parentModel(parentModel)
                         .build());
         if(modelDTO.getSubmodels()!=null)
-           modelRepository.saveAll(this.addSubmodels(modelDTO.getSubmodels(),parent,catalogue));
-    }
-
-    public List<CarModel> addSubmodels(List<Model> childs,CarModel parent,CarCatalogue catalogue){
-        return childs.stream()
-                .map(child ->{
-                    CarModel model = new CarModel();
-                    model.setName(child.getName());
-                    model.setFrom(child.getFrom());
-                    model.setTo(child.getTo());
-                    model.setLine(child.getLine()!=null?this.addModelLine(child.getLine()):null);
-                    model.setParentModel(parent);
-                    model.setCatalogue(catalogue);
-
-                    if(child.getEngineDTO().getPower().equals(parent.getCarEngine().getPower()) &&
-                            child.getEngineDTO().getType().equals(parent.getCarEngine().getType().getType())){
-                        model.setCarEngine(parent.getCarEngine());
-                    }else{
-                        model.setCarEngine(engineService.addEngine(child.getEngineDTO()));
-                    }
-                    if(child.getWheelsDTO().getSize().equals(parent.getWheels().getSize()) &&
-                            child.getWheelsDTO().getType().equals(parent.getWheels().getType().getType())){
-                        model.setWheels(parent.getWheels());
-                    }else{
-                        model.setWheels(wheelsService.addWheels(child.getWheelsDTO()));
-                    }
-                    return model;
-                }).collect(Collectors.toList());
+            modelDTO.getSubmodels()
+                    .stream()
+                    .forEach(data->this.addCarModel(data,parent,catalogue));
     }
 
     @Override

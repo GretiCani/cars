@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,7 +18,7 @@ public class CarCatalogue extends BaseEntity{
     private String brand;
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "catalogue")
+    @OneToMany(mappedBy = "catalogue",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<CarModel> models;
 
     @Builder

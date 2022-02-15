@@ -17,9 +17,10 @@ public class CarModelDTO extends BaseDTO{
     private String wheelsType;
     private String wheelsSize;
     private Integer parentId;
+    private Integer catalogueId;
 
     @Builder
-    public CarModelDTO(Integer id, LocalDateTime createdAt, String modelName, String modelType, String modelLine, Integer from, Integer to, String engineType, Integer enginePower, String wheelsType, String wheelsSize, Integer parentId) {
+    public CarModelDTO(Integer id, LocalDateTime createdAt, String modelName, String modelType, String modelLine, Integer from, Integer to, String engineType, Integer enginePower, String wheelsType, String wheelsSize, Integer parentId,Integer catalogueId) {
         super(id, createdAt);
         this.modelName = modelName;
         this.modelType = modelType;
@@ -31,5 +32,6 @@ public class CarModelDTO extends BaseDTO{
         this.wheelsType = wheelsType;
         this.wheelsSize = wheelsSize;
         this.parentId = parentId;
+        this.catalogueId = catalogueId;
     }
 }
