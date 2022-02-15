@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface EngineTypeRepository extends JpaRepository<EngineType,Integer> {
-
     Optional<EngineType> findFirstByType(String type);
 
 }

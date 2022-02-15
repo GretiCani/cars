@@ -20,8 +20,8 @@ public class CarsController {
     private final CatalogueService catalogueService;
 
     @GetMapping("/catalogue/{brand}/{sort}")
-    public List<CarModelDTO> findCatalogueByBrand(@PathVariable String brand,@PathVariable String sort){
-        return catalogueService.findCatalogueByBrand(brand,sort);
+    public ResponseEntity<List<CarModelDTO>> findCatalogueByBrand(@PathVariable String brand,@PathVariable String sort){
+        return ResponseEntity.ok(catalogueService.findCatalogueByBrand(brand,sort));
     }
 
     @GetMapping("/model/{id}/features")

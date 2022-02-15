@@ -18,7 +18,7 @@ public class CarCatalogue extends BaseEntity{
     private String brand;
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "catalogue",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "catalogue",fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarModel> models;
 
     @Builder
