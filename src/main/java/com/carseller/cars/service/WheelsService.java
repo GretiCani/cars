@@ -6,7 +6,6 @@ import com.carseller.cars.commons.dto.CarWheelsDTO;
 import com.carseller.cars.commons.xml.Wheels;
 
 public interface WheelsService {
-    CarWheelsDTO findWheelsById(Integer id);
     CarWheels addWheels(Wheels wheelsDTO);
     WheelsType addWheelsType(String type);
 }

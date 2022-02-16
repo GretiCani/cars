@@ -20,13 +20,6 @@ public class EngineServiceImpl implements EngineService {
     private final EngineTypeRepository engineTypeRepository;
 
     @Override
-    public CarEngineDTO findEngineById(Integer id) {
-        return engineRepository.findById(id)
-                .map(engine -> Mapper.toEngineDTO(engine))
-                .orElseThrow(()-> new ResourceNotFound("Resource with "+id+" does not exist"));
-    }
-
-    @Override
     public CarEngine addEngine(Engine engineDTO) {
         EngineType type = this.addEngineType(engineDTO.getType());
         return  engineRepository.findFirstByPowerAndType(engineDTO.getPower(),type)

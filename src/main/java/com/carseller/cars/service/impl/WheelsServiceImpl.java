@@ -22,13 +22,6 @@ public class WheelsServiceImpl implements WheelsService {
     private final WheelsTypeRepository wheelsTypeRepository;
 
     @Override
-    public CarWheelsDTO findWheelsById(Integer id) {
-        return wheelsRepository.findById(id)
-                .map(wheels -> Mapper.toWheelsDTO(wheels))
-                .orElseThrow(()-> new ResourceNotFound("Resource with "+id+" does not exist"));
-    }
-
-    @Override
     public CarWheels addWheels(Wheels wheelsDTO) {
         WheelsType type = this.addWheelsType(wheelsDTO.getType());
         return wheelsRepository.findFirstBySizeAndType(wheelsDTO.getSize(),type)
